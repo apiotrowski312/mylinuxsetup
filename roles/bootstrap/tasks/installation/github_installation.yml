@@ -1,0 +1,14 @@
+- set_fact: link="{{item}}"
+
+- name: Get package download link from github
+  shell: curl -L {{link}} | jq -r '.assets[].browser_download_url' | grep 'amd64.deb' | head -n1
+  register: debUrl
+  args:
+    warn: False
+
+- name: Install {{link}}
+  become: true
+  apt:
+    deb: "{{ debUrl.stdout }}"
+    state: present
+  ignore_errors: True
