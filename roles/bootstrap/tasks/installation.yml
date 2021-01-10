@@ -27,6 +27,7 @@
       - neovim  
       - kde-spectacle
       - flameshot
+      - thunderbird
     state: latest
 
 - include_tasks: installation/github_installation.yml
