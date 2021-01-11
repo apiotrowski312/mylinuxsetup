@@ -28,6 +28,7 @@
       - kde-spectacle
       - flameshot
       - thunderbird
+      - virtualbox
     state: latest
 
 - include_tasks: installation/github_installation.yml
