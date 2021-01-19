@@ -7,4 +7,4 @@ run:
 	ansible-playbook -K playbook.yml
 
 test:
-	vagrant provision
+	cd vagrant; vagrant up; vagrant provision

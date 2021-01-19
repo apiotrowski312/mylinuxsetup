@@ -19,6 +19,8 @@
       - tree
       - imagemagick
       - git
+      - python3
+      - pip
 
       - yakuake
       - filezilla
@@ -62,3 +64,8 @@
     url: https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
     dest: /usr/local/bin/hadolint
     mode: '0440'
+
+- name: Install python packages
+  pip:
+    name:
+      - gdtoolkit
