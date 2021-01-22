@@ -1,4 +1,4 @@
-- name: "Install all apps"
+- name: Install all apps
   become: true
   apt:
     update_cache: yes 
@@ -64,8 +64,3 @@
     url: https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
     dest: /usr/local/bin/hadolint
     mode: '0440'
-
-- name: Install python packages
-  pip:
-    name:
-      - gdtoolkit
