@@ -24,12 +24,6 @@
   loop:
     - .dotfiles/dotfiles/.variables
 
-- name: Create a symbolic link
-  file:
-    src:  ~/.dotfiles/nvim/init.vim
-    dest: ~/.config/nvim/init.vim
-    state: link
-
 - name: Add source dotfiles
   blockinfile:
     path: ~/.bashrc
