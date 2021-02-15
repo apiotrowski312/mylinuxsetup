@@ -1,0 +1,42 @@
+- name: Install zsh
+  become: true
+  apt:
+    update_cache: yes 
+    pkg:
+      - zsh
+      - fonts-powerline
+    state: latest
+
+- name: change user shell to zsh 
+  become: yes
+  user:
+    name: "{{ the_user }}"
+    shell: /bin/zsh
+
+- stat:
+    path: /home/{{ the_user }}/.oh-my-zsh
+  register: ohmyzsh
+
+- name: Install oh my zsh
+  block:
+    - name: Download install.sh
+      get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install.sh
+    - name: run install.sh
+      shell: /tmp/install.sh
+    - name: Add zsh syntax highlight
+      shell: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    - name: Add spaceship prompt
+      shell: |
+        git clone https://github.com/denysdovhan/spaceship-prompt.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt" --depth=1
+        ln -s "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme" "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme"
+  when: ohmyzsh.stat.exists == false
+
+- name: Copy zsh files to source
+  copy:
+    src: files/{{item.src}}
+    dest: /home/{{ the_user }}/{{item.dst}}
+  loop:
+    - { src: zsh/zshrc, dst: .zshrc }
+    - { src: zsh/custom/, dst: .oh-my-zsh/custom/}

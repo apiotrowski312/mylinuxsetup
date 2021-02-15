@@ -17,6 +17,7 @@ alias enable-touchpad="xinput set-prop 12 \"Device Enabled\" 1"
 alias sound-hdmi="pacmd set-card-profile 0 output:hdmi-stereo+input:analog-stereo"
 alias sound-laptop="pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo"
 alias dark-screen="sudo su -c \"echo 1 > /sys/class/backlight/intel_backlight/brightness"\"
+alias update='sudo pkcon update'
 
 # golang
 alias git-go-lines="git ls-files | grep -P \".*go\$\" | xargs cat | wc -l"
@@ -24,14 +25,14 @@ alias git-go-lines="git ls-files | grep -P \".*go\$\" | xargs cat | wc -l"
 # git
 alias gundo="git reset --soft HEAD~1"
 
-# other
+# utils
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
-alias update='sudo pkcon update'
+alias tolower="tr '[:upper:]' '[:lower:]'"
+alias toupper="tr '[:lower:]' '[:upper:]'"
+
 
 # Vim commands
 alias vi='nvim'
 alias vim='nvim'
 alias vimdiff="nvim -d"
-
-# vim: ts=2 sts=2 sw=2 et

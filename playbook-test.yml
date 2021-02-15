@@ -1,5 +1,8 @@
 - hosts: all
+  vars:
+    the_user: "{{ ansible_user_id }}"
   roles:
-    - bootstrap
-    - gamedev
-    - video
+    # - bootstrap
+    # - gamedev
+    # - video
+    - shell

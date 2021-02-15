@@ -29,9 +29,6 @@
 - name: 'add users to docker group'
   become: true
   user:
-    name: '{{ item }}'
+    name: "{{ the_user }}"
     groups: 'docker'
     append: 'yes'
-  with_items: 
-    - 'devil'
-    - 'vagrant'

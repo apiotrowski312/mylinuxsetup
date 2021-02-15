@@ -6,12 +6,14 @@
       - neovim  
     state: latest
 
+# FIXME: ???
 - name: Install vim-plug
   shell: curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   register: debUrl
   args:
     warn: False
 
+# FIXME: ???
 - name: Create a symbolic link
   file:
     src:  ~/.dotfiles/nvim/init.vim
