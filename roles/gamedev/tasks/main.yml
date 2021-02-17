@@ -1,0 +1,46 @@
+---
+- name: Install apps for gamedev
+  become: true
+  apt:
+    update_cache: true
+    pkg:
+      - audacity
+      - krita
+      - python3
+      - python3-pip
+      - curl
+    state: latest
+
+- name: Install python packages
+  pip:
+    name:
+      - gdtoolkit
+
+- name: Create directory for game dev
+  file:
+    path: ~/{{item}}
+    state: directory
+  loop:
+    - Gamedev
+
+- name: Find Godot file
+  find:
+    paths: ~/Gamedev
+    patterns: 'Godot_*.64'
+  register: godot
+
+- name: Godot install
+  block:
+  - name: Get package download link from github
+    shell: curl --silent -L https://godotengine.org/download/linux | grep -oE "https://.*64.zip" | grep -vE "mono"
+    register: godotUrl
+  - name: Download file and put it
+    get_url:
+      url: "{{ godotUrl.stdout }}"
+      dest: /tmp/godot.zip
+  - name: Unarchive godot
+    ansible.builtin.unarchive:
+      src: /tmp/godot.zip
+      dest: ~/Gamedev
+      remote_src: yes
+  when: godot.files|length == 0

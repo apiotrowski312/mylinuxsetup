@@ -1,4 +1,79 @@
-- include_tasks: installation.yml
-- include_tasks: files.yml
-- include_tasks: vim.yml
-- include_tasks: gamedev.yml
+---
+
+
+- name: Install base apps I use
+  become: true
+  apt:
+    update_cache: true
+    pkg:
+      - software-properties-common
+      - build-essential
+      - apt-transport-https
+      - ca-certificates
+      - gnupg-agent
+
+      - curl
+      - htop
+      - jq
+      - ncdu
+      - dos2unix
+      - shellcheck
+      - xclip
+      - watch
+      - tree
+      - imagemagick
+      - git
+      - python3
+      - python3-pip
+      - yamllint
+
+      - fzf
+
+      - yakuake
+      - filezilla
+      - kde-spectacle
+      - thunderbird
+
+      - virtualbox
+      - vagrant
+    state: latest
+
+
+- include_tasks: installation/github_installation.yml
+  with_items:
+    - {name: bat-musl, link: https://api.github.com/repos/sharkdp/bat/releases/latest}
+    - {name: fd-musl, link: https://api.github.com/repos/sharkdp/fd/releases/latest}
+    - {name: simplenote, link: https://api.github.com/repos/Automattic/simplenote-electron/releases/latest}
+    - {name: stacer, link: https://api.github.com/repos/oguzhaninan/Stacer/releases/latest}
+
+- include_tasks: installation/docker_installation.yml
+- include_tasks: installation/kubectl_installation.yml
+- include_tasks: installation/brave_installation.yml
+
+- name: Install VS Code
+  become: true
+  apt:
+    deb: https://go.microsoft.com/fwlink/?LinkID=760868
+    state: present
+
+- stat:
+    path: /home/vagrant/.go
+  register: golang
+
+- name: Install golang
+  shell: curl -L https://git.io/vQhTU | bash
+  when: golang.stat.exists == false
+
+- name: Install hadolint
+  become: true
+  get_url:
+    url: https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+    dest: /usr/local/bin/hadolint
+    mode: '0755'
+
+- name: Copy files to source
+  copy:
+    src: files/{{item.src}}
+    dest: /home/{{ the_user }}/{{item.dst}}
+  loop:
+    - {src: git/gitconfig, dst: .gitconfig}

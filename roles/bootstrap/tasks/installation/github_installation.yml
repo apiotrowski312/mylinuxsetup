@@ -1,14 +1,21 @@
-- set_fact: link="{{item}}"
+---
+- set_fact: name="{{ item.name }}"
+- set_fact: link="{{ item.link }}"
 
-- name: Get package download link from github
-  shell: curl -L {{link}} | jq -r '.assets[].browser_download_url' | grep 'amd64.deb' | head -n1
-  register: debUrl
-  args:
-    warn: False
+- name: Gather the package facts
+  package_facts:
+    manager: "auto"
 
-- name: Install {{link}}
-  become: true
-  apt:
-    deb: "{{ debUrl.stdout }}"
-    state: present
-  ignore_errors: True
+- name: Install app
+  block:
+  - name: Get package download link from github
+    shell: curl -L {{ link }} | jq -r '.assets[].browser_download_url' | grep 'amd64.deb' | head -n1
+    register: debUrl
+    args:
+  - name: Install {{link}}
+    become: true
+    apt:
+      deb: "{{ debUrl.stdout }}"
+      state: present
+    ignore_errors: True
+  when: "name|string not in ansible_facts.packages"

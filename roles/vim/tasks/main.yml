@@ -1,0 +1,28 @@
+---
+- name: Install all apps
+  become: true
+  apt:
+    update_cache: true
+    pkg:
+      - neovim
+    state: latest
+- stat:
+    path: .local/share/nvim/site/autoload/plug.vim
+  register: plug
+
+- name: Install vim-plug
+  shell: curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  register: debUrl
+  when: plug.stat.exists == false
+
+- name: Creates nvim directory
+  file:
+    path: /home/{{ the_user }}/.config/nvim
+    state: directory
+
+- name: Copy vim files to source
+  copy:
+    src: files/{{item.src}}
+    dest: /home/{{ the_user }}/{{item.dst}}
+  loop:
+    - {src: nvim/init.vim, dst: .config/nvim/init.vim}

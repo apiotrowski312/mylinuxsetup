@@ -1,12 +1,18 @@
+
+---
 - name: Add kdenlive repository
   become: true
   apt_repository:
     repo: 'ppa:kdenlive/kdenlive-stable'
 
-- name: Install kdenlive
+- name: Install all apps
   become: true
-  apt: 
+  apt:
+    update_cache: true
     pkg:
+      - imagemagick
       - kdenlive
-    update_cache: yes 
+      - simplescreenrecorder
+      - krita
+      - audacity
     state: latest
