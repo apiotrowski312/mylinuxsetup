@@ -1,3 +1,6 @@
 
+[include]
+    path = ~/.gitconfig_custom
+
 [alias]
     undo = reset --soft HEAD~1
