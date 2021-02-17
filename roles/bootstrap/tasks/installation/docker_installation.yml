@@ -1,3 +1,4 @@
+---
 - name: Add Docker GPG apt Key
   become: true
   apt_key:
@@ -12,11 +13,11 @@
 
 - name: Update apt and install docker-ce
   become: true
-  apt: 
+  apt:
     pkg:
       - docker-ce
       - docker-compose
-    update_cache: yes 
+    update_cache: true
     state: latest
 
 - name: Enable docker systemd service

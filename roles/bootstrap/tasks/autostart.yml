@@ -1,3 +1,4 @@
+---
 - name: Creates directory
   file:
     path: ~/{{item}}
@@ -10,4 +11,4 @@
     src: /usr/share/applications/{{item.src}}
     dest: ~/.config/autostart/{{item.dst}}
   loop:
-    - { src: org.kde.yakuake.desktop/, dst: yakuakerc }
+    - {src: org.kde.yakuake.desktop/, dst: yakuakerc}

@@ -1,9 +1,10 @@
+---
 - name: Install all apps
   become: true
   apt:
-    update_cache: yes 
+    update_cache: true
     pkg:
-      - neovim  
+      - neovim
     state: latest
 - stat:
     path: .local/share/nvim/site/autoload/plug.vim
@@ -24,4 +25,4 @@
     src: files/{{item.src}}
     dest: /home/{{ the_user }}/{{item.dst}}
   loop:
-    - { src: nvim/init.vim, dst: .config/nvim/init.vim }
+    - {src: nvim/init.vim, dst: .config/nvim/init.vim}

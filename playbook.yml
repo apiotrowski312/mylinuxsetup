@@ -1,6 +1,10 @@
 - hosts: localhost
-  connection: local 
+  connection: local
   vars:
     the_user: "{{ ansible_user_id }}"
   roles:
     - bootstrap
+    - gamedev
+    - video
+    - shell
+    - vim

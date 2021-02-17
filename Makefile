@@ -8,3 +8,6 @@ prepare:
 
 test:
 	cd vagrant; vagrant up; vagrant provision
+
+clean:
+	cd vagrant; vagrant destroy -f

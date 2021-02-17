@@ -1,3 +1,4 @@
+---
 - name: add the apt key
   become: true
   apt_key:
@@ -13,6 +14,6 @@
 - name: install kubectl
   become: true
   package:
-    update_cache: yes 
+    update_cache: true
     name: kubectl
     state: latest
