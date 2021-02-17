@@ -30,6 +30,7 @@ SPACESHIP_DIR_COLOR=blue
 SPACESHIP_DIR_PREFIX=""
 SPACESHIP_DIR_TRUNC=0
 SPACESHIP_DIR_SUFIX=""
+SPACESHIP_DIR_TRUNC_REPO=false
 
 # -----------------------------------------------------------------------------
 # Git

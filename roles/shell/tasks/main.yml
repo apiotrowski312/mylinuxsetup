@@ -32,10 +32,14 @@
         ln -s ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme
   when: ohmyzsh.stat.exists == false
 
+- name: Copy .zshrc
+  template:
+    src: files/zsh/zshrc
+    dest: /home/{{ the_user }}/.zshrc
+
 - name: Copy zsh files to source
   copy:
     src: files/{{item.src}}
     dest: /home/{{ the_user }}/{{item.dst}}
   loop:
-    - {src: zsh/zshrc, dst: .zshrc}
     - {src: zsh/custom/, dst: .oh-my-zsh/custom/}

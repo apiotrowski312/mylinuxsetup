@@ -26,6 +26,7 @@
       - python3
       - python3-pip
       - yamllint
+      - watch
 
       - fzf
 
