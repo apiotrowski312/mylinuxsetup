@@ -73,7 +73,6 @@ ZSH_THEME="spaceship"
 plugins=(
     fd
     fzf
-    gem
 
     git
 
@@ -82,7 +81,7 @@ plugins=(
     docker
     docker-compose
     docker-machine
-    
+
     vagrant
     zsh-syntax-highlighting
 )
