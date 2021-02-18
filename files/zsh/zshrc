@@ -81,6 +81,7 @@ plugins=(
     docker
     docker-compose
     docker-machine
+    kubectl
 
     vagrant
     zsh-syntax-highlighting
