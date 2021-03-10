@@ -22,9 +22,6 @@ alias update='sudo pkcon update'
 # golang
 alias git-go-lines="git ls-files | grep -P \".*go\$\" | xargs cat | wc -l"
 
-# git
-alias gundo="git reset --soft HEAD~1"
-
 # utils
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
