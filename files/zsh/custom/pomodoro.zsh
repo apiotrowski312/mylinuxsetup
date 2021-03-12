@@ -3,6 +3,9 @@
 # Comandline pomodoro timer 
 function _countdown() {
   for i in {$1..1}; do
+    if [[ i == 1 ]]; then
+      notify-send "One minute left" "Prepare" -u normal -a 'Pomodoro'
+    fi
     echo "Time left: $i minutes"
     sleep 60 
   done
